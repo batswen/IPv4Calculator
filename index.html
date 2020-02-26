@@ -32,6 +32,10 @@
                 border-radius: 3px;
                 padding: 0.5em;
             }
+            .btn:hover {
+                background-color: #ccc;
+                color: #222;
+            }
             .rahmen {
                 background-color: #22e;
                 color: #fff;
@@ -52,7 +56,7 @@
         <label for="ip">IP</label>
         <input id="ip" class="inp" type="text" value="192.168.0.1" onchange="calc()">
         <label for="suffix">Suffix</label>
-        <input id="suffix" class="inp" type="number" value="24" min="0" max="32" onchange="calc()">
+        <input id="suffix" class="inp" type="number" value="24" min="0" max="30" onchange="calc()">
         <br>
         <!--<button onclick="calc()">Calculate</button>-->
         <br>
@@ -112,7 +116,9 @@
                 const hoststo = broadcast - 1
                 document.getElementById("hoststo").innerHTML = numToDotted(hoststo)
                 document.getElementById("hoststobin").innerHTML = numToBinDotted(hoststo)
-                const hosts = Math.pow(2, 32 - input_suffix) - 2
+                let hosts = Math.pow(2, 32 - input_suffix) - 2
+                hosts = hosts < 0 ? 0 : hosts
+                hosts = hosts > 16777214 ? 16777214 : hosts
                 document.getElementById("hosts").innerHTML = hosts
             }
             function numToDotted(num) {
