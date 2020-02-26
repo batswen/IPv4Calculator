@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>IPv4</title>
+        <title>IPv4 calculator</title>
         <style>
             body, input {
                 font-family: sans-serif;
@@ -34,63 +34,51 @@
                 border-radius: 3px;
                 padding: 0.5em;
             }
-            .btn:hover {
-                background-color: #ccc;
-                color: #222;
-            }
-            .rahmen {
-                background-color: #22e;
-                color: #fff;
-                text-align: center;
-            }
-            .txtrgt {
-                text-align: right;
-            }
-            .txtrgt:hover {
-                background-color: black;
-                color: white;
-            }
         </style>
     </head>
     <body>
-        <h3>IP v4 calculator</h3>
-        <datalist id="ipadrs">
-            <option value="10.10.10.10">
-            <option value="172.16.0.1">
-            <option value="192.168.0.1">
-            <option value="200.200.200.200">
-        </datalist>
-        <label for="ip">IP</label>
-        <input id="ip" class="inp" list="ipadrs" type="text" value="192.168.0.1"onchange="calc()">
-        <label for="suffix">Suffix</label>
-        <input id="suffix" class="inp" type="number" value="24" min="0" max="30" onchange="calc()">
-        <br>
-        <table>
-            <tr>
-                <th></th><th>Address</th><th>Binary</th>
-            </tr>
-            <tr>
-                <td>IP</td><td id="dottedip"></td><td id="ipbin"></td>
-            </tr>
-            <tr>
-                <td>Subnet mask</td><td id="subnetmask"></td><td id="subnetmaskbin"></td>
-            </tr>
-            <tr>
-                <td>Network</td><td id="network"></td><td id="networkbin"></td>
-            </tr>
-            <tr>
-                <td>Host range from</td><td id="hostsfrom"></td><td id="hostsfrombin"></td>
-            </tr>
-            <tr>
-                <td>Host range to</td><td id="hoststo"></td><td id="hoststobin"></td>
-            </tr>
-            <tr>
-                <td>Broadcast</td><td id="broadcast"></td><td id="broadcastbin"></td>
-            </tr>
-            <tr>
-                <td>Hosts</td><td id="hosts"><td></td></td>
-            </tr>
-        </table>
+        <center>
+            <h3>IP v4 calculator</h3>
+            <h4>2020 Swen Rühl</h4>
+            <datalist id="ipadrs">
+                <option value="10.10.10.10">
+                <option value="172.16.0.1">
+                <option value="192.168.0.1">
+                <option value="200.200.200.200">
+            </datalist>
+            <label for="ip">IP</label>
+            <input id="ip" class="inp" list="ipadrs" type="text" value="192.168.0.1"onchange="calc()">
+            <label for="suffix">Suffix</label>
+            <input id="suffix" class="inp" type="number" value="24" min="0" max="30" onchange="calc()">
+            <br>
+            <table>
+                <tr>
+                    <th></th><th>Address</th><th>Binary</th>
+                </tr>
+                <tr>
+                    <td>IP</td><td id="dottedip"></td><td id="ipbin"></td>
+                </tr>
+                <tr>
+                    <td>Subnet mask</td><td id="subnetmask"></td><td id="subnetmaskbin"></td>
+                </tr>
+                <tr>
+                    <td>Network</td><td id="network"></td><td id="networkbin"></td>
+                </tr>
+                <tr>
+                    <td>Host range from</td><td id="hostsfrom"></td><td id="hostsfrombin"></td>
+                </tr>
+                <tr>
+                    <td>Host range to</td><td id="hoststo"></td><td id="hoststobin"></td>
+                </tr>
+                <tr>
+                    <td>Broadcast</td><td id="broadcast"></td><td id="broadcastbin"></td>
+                </tr>
+                <tr>
+                    <td>Hosts</td><td id="hosts"><td></td></td>
+                </tr>
+            </table>
+        </center>
+
         <script>
             calc()
             function calc() {
