@@ -41,7 +41,7 @@
             <h3>IP v4 calculator</h3>
             <h4>2020 Swen Rühl</h4>
             <datalist id="ipadrs">
-                <option value="10.10.10.10">
+                <option value="10.0.0.1">
                 <option value="172.16.0.1">
                 <option value="192.168.0.1">
                 <option value="200.200.200.200">
@@ -57,6 +57,9 @@
                 </tr>
                 <tr>
                     <td>IP</td><td id="dottedip"></td><td id="ipbin"></td>
+                </tr>
+                <tr>
+                    <td>Class</td><td id="classchar"></td><td id="classbits"></td>
                 </tr>
                 <tr>
                     <td>Subnet mask</td><td id="subnetmask"></td><td id="subnetmaskbin"></td>
@@ -76,6 +79,9 @@
                 <tr>
                     <td>Hosts</td><td id="hosts"><td></td></td>
                 </tr>
+                <tr style="visibility:hidden;">
+                    <td></td><td>255.255.255.255</td><td>11111111.11111111.11111111.11111111</td>
+                </tr>
             </table>
         </center>
 
@@ -94,6 +100,22 @@
 
                 document.getElementById("dottedip").innerHTML = numToDotted(ip)
                 document.getElementById("ipbin").innerHTML = numToBinDotted(ip)
+                let classchar, classbits
+                if (ip < 128 * 16777216) {
+                    classchar = "A"; classbits = "0......."
+                } else if (ip < 192 * 16777216) {
+                    classchar = "B"; classbits = "10......"
+                } else if (ip < 224 * 16777216) {
+                    classchar = "C"; classbits = "110....."
+                } else if (ip < 240 * 16777216) {
+                    classchar = "D"; classbits = "1110...."
+                } else {
+                    classchar = "E"; classbits = "1111...."
+                }
+                document.getElementById("classchar").innerHTML = classchar
+                document.getElementById("classbits").innerHTML = classbits
+
+
                 const subnetmask = dottedToNum(suffixToSubnet(input_suffix))
                 document.getElementById("subnetmask").innerHTML = numToDotted(subnetmask)
                 document.getElementById("subnetmaskbin").innerHTML = numToBinDotted(subnetmask)
