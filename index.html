@@ -14,11 +14,11 @@
                 margin-top: 1em;
                 border-collapse: collapse;
             }
-            tr:nth-child(2n) {
-                background-color: #bbf;
-            }
             tr:nth-child(2n+1) {
-                background-color: #ddf;
+                background-color: #dde;
+            }
+            tr:nth-child(2n) {
+                background-color: #eef;
             }
             th {
                 padding: 0.5em;
@@ -119,16 +119,16 @@
                 document.getElementById("subnetmaskbin").innerHTML = numToBinDotted(subnetmask)
                 const network = ip & subnetmask
                 document.getElementById("network").innerHTML = numToDotted(network)
-                document.getElementById("networkbin").innerHTML = numToBinDotted(network)
+                document.getElementById("networkbin").innerHTML = numToBinDotted(network, input_suffix)
                 const broadcast = ip | ~subnetmask
                 document.getElementById("broadcast").innerHTML = numToDotted(broadcast)
-                document.getElementById("broadcastbin").innerHTML = numToBinDotted(broadcast)
+                document.getElementById("broadcastbin").innerHTML = numToBinDotted(broadcast, input_suffix)
                 const hostsfrom = network + 1
                 document.getElementById("hostsfrom").innerHTML = numToDotted(hostsfrom)
-                document.getElementById("hostsfrombin").innerHTML = numToBinDotted(hostsfrom)
+                document.getElementById("hostsfrombin").innerHTML = numToBinDotted(hostsfrom, input_suffix)
                 const hoststo = broadcast - 1
                 document.getElementById("hoststo").innerHTML = numToDotted(hoststo)
-                document.getElementById("hoststobin").innerHTML = numToBinDotted(hoststo)
+                document.getElementById("hoststobin").innerHTML = numToBinDotted(hoststo, input_suffix)
                 let hosts = Math.pow(2, 32 - input_suffix) - 2
                 hosts = hosts < 0 ? 0 : hosts
                 hosts = hosts > 16777214 ? 16777214 : hosts
@@ -137,8 +137,25 @@
             function numToDotted(num) {
                 return ((num >> 24) & 255) + "." + ((num >> 16) & 255) + "." + ((num >> 8) & 255) + "." + (num & 255)
             }
-            function numToBinDotted(num) {
-                return toBin8((num >> 24) & 255) + "." + toBin8((num >> 16) & 255) + "." + toBin8((num >> 8) & 255) + "." + toBin8(num & 255)
+            function numToBinDotted(num, colbits) {
+                let result, bits, dots
+                if (colbits !== undefined) {
+                    bits = toBin8((num >> 24) & 255) + toBin8((num >> 16) & 255) + toBin8((num >> 8) & 255) + toBin8(num & 255)
+                    result = bits.slice(0, colbits) + "<span style='color:red;'>" + bits.substring(colbits, 32) + "</span>"
+                    bits = 0; dots = 0
+                    for (i = 0; i < result.length; i++) {
+                        if (result.charAt(i) === "0" || result.charAt(i) === "1") {
+                            bits++
+                        }
+                        if (bits === 8 && dots < 3) {
+                            bits = 0; dots++
+                            result = result.substring(0, i + 1) + "<span style='color:black;'>.</span>" + result.substring(i + 1, result.length)
+                        }
+                    }
+                } else {
+                    result = toBin8((num >> 24) & 255) + "." + toBin8((num >> 16) & 255) + "." + toBin8((num >> 8) & 255) + "." + toBin8(num & 255)
+                }
+                return result
             }
             function dottedToNum(dotted) {
                 let result = 0
