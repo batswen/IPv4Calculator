@@ -54,7 +54,7 @@
                 <th></th><th>Address</th><th>Binary</th>
             </tr>
             <tr>
-                <td>IP</td><td id="ip"></td><td id="ipbin"></td>
+                <td>IP</td><td id="dottedip"></td><td id="ipbin"></td>
             </tr>
             <tr>
                 <td>Subnet mask</td><td id="subnetmask"></td><td id="subnetmaskbin"></td>
@@ -88,7 +88,7 @@
 
                 const ip = dottedToNum(input_ip)
 
-                document.getElementById("ip").innerHTML = numToDotted(ip)
+                document.getElementById("dottedip").innerHTML = numToDotted(ip)
                 document.getElementById("ipbin").innerHTML = numToBinDotted(ip)
                 const subnetmask = dottedToNum(suffixToSubnet(input_suffix))
                 document.getElementById("subnetmask").innerHTML = numToDotted(subnetmask)
@@ -99,7 +99,7 @@
                 const broadcast = ip | ~subnetmask
                 document.getElementById("broadcast").innerHTML = numToDotted(broadcast)
                 document.getElementById("broadcastbin").innerHTML = numToBinDotted(broadcast)
-                const hostsfrom = ip + 1
+                const hostsfrom = network + 1
                 document.getElementById("hostsfrom").innerHTML = numToDotted(hostsfrom)
                 document.getElementById("hostsfrombin").innerHTML = numToBinDotted(hostsfrom)
                 const hoststo = broadcast - 1
