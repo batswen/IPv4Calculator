@@ -11,6 +11,7 @@
                 font-size: 12pt;
             }
             table {
+                margin-top: 1em;
                 border-collapse: collapse;
             }
             tr:nth-child(2n) {
@@ -19,13 +20,14 @@
             tr:nth-child(2n+1) {
                 background-color: #ddf;
             }
-            .p-5 {
+            th {
                 padding: 0.5em;
             }
             td {
                 font-family: monospace;
                 border-left: 1px solid black;
                 border-right: 1px solid black;
+                padding: 0.5em;
             }
             .inp {
                 border: 1px solid #ccc;
@@ -52,38 +54,41 @@
     </head>
     <body>
         <h3>IP v4 calculator</h3>
-
+        <datalist id="ipadrs">
+            <option value="10.10.10.10">
+            <option value="172.16.0.1">
+            <option value="192.168.0.1">
+            <option value="200.200.200.200">
+        </datalist>
         <label for="ip">IP</label>
-        <input id="ip" class="inp" type="text" value="192.168.0.1" onchange="calc()">
+        <input id="ip" class="inp" list="ipadrs" type="text" value="192.168.0.1"onchange="calc()">
         <label for="suffix">Suffix</label>
         <input id="suffix" class="inp" type="number" value="24" min="0" max="30" onchange="calc()">
         <br>
-        <!--<button onclick="calc()">Calculate</button>-->
-        <br>
         <table>
             <tr>
-                <th></th><th class="p-5">Address</th><th class="p-5">Binary</th>
+                <th></th><th>Address</th><th>Binary</th>
             </tr>
             <tr>
-                <td class="p-5">IP</td><td class="p-5" id="dottedip"></td><td class="p-5" id="ipbin"></td>
+                <td>IP</td><td id="dottedip"></td><td id="ipbin"></td>
             </tr>
             <tr>
-                <td class="p-5">Subnet mask</td><td class="p-5" id="subnetmask"></td><td class="p-5" id="subnetmaskbin"></td>
+                <td>Subnet mask</td><td id="subnetmask"></td><td id="subnetmaskbin"></td>
             </tr>
             <tr>
-                <td class="p-5">Network</td><td class="p-5" id="network"></td><td class="p-5" id="networkbin"></td>
+                <td>Network</td><td id="network"></td><td id="networkbin"></td>
             </tr>
             <tr>
-                <td class="p-5">Host range from</td><td class="p-5" id="hostsfrom"></td><td class="p-5" id="hostsfrombin"></td>
+                <td>Host range from</td><td id="hostsfrom"></td><td id="hostsfrombin"></td>
             </tr>
             <tr>
-                <td class="p-5">Host range to</td><td class="p-5" id="hoststo"></td><td class="p-5" id="hoststobin"></td>
+                <td>Host range to</td><td id="hoststo"></td><td id="hoststobin"></td>
             </tr>
             <tr>
-                <td class="p-5">Broadcast</td><td class="p-5" id="broadcast"></td><td class="p-5" id="broadcastbin"></td>
+                <td>Broadcast</td><td id="broadcast"></td><td id="broadcastbin"></td>
             </tr>
             <tr>
-                <td class="p-5">Hosts</td><td class="p-5" id="hosts"><td></td></td>
+                <td>Hosts</td><td id="hosts"><td></td></td>
             </tr>
         </table>
         <script>
