@@ -48,6 +48,8 @@
             <input id="ip" class="inp" list="ipadrs" type="text" value="192.168.0.1" onchange="calc()">
             <label for="suffix">Suffix</label>
             <input id="suffix" class="inp" type="number" value="24" min="0" max="30" onchange="calc()">
+            <!--<label for="netmsk">Netmask</label>
+            <input id="netmsk" class="inp" type="text" value="" onchange="calc()">-->
             <br>
             <table>
                 <tr>
@@ -88,9 +90,10 @@
             function calc() {
                 const input_ip = document.getElementById("ip").value
                 const input_suffix = document.getElementById("suffix").value
+                /*const input_netmask = document.getElementById("netmsk").value*/
                 const ipAdrRegEx = new RegExp("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$")
 
-                if (input_ip === null || input_suffix === null || ipAdrRegEx.test(input_ip) === false) {
+                if (input_ip === null || ipAdrRegEx.test(input_ip) === false || input_suffix === null && input_netmask === null) {
                     return
                 }
 
@@ -115,6 +118,9 @@
 
 
                 const subnetmask = dottedToNum(suffixToSubnet(input_suffix))
+                /*if (input_netmask !== null) {
+                    subnetmask = subnetToSuffix(input_netmask)
+                }*/
                 document.getElementById("subnetmask").innerHTML = numToDotted(subnetmask)
                 document.getElementById("subnetmaskbin").innerHTML = numToBinDotted(subnetmask)
                 const network = ip & subnetmask
@@ -191,6 +197,15 @@
                     }
                 }
                 return result.substring(0, result.length - 1)
+            }
+            function subnetToSuffix(sn) {
+                let result = 0
+                sn = sn.split(".")
+                for (let s of sn) {
+                    result *= 256
+                    result += Number(s)
+                }
+                return result.toString(2).replace(/0/g, "").length
             }
             function toBin(num) {
                 num = Number(num)
